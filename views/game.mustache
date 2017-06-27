@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Clement's Mystery Word</title>
+    <meta charset="utf-8">
+    <link href="styles.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <header>
+    <h1>Clement's Mystery Word Guessing Game</h1>
+
+    <section class="game-section">
+    <div class="game-box">
+      <h3>Welcome to Mystery Word!</h3>
+      <p>You will be guessing a random word from quite a large dictionary (235,886 words to be exact). This is a pretty easy version of the game, so words will range between 5 and 7 letters. Whenever you're ready, you can enter your first guess in the box below. Have fun!</p>
+      <br>
+      <br>
+        <form class="form" method="post">
+          <input id="user-input" name="userInput" placeholder="enter a letter">
+        <div class="letters-guessed">
+        <span>Letters Guessed:<br></span>
+        {{#lettersGuessed}}
+        {{#.}}
+        <span>{{.}}<br></span>
+        {{/.}}
+        {{/lettersGuessed}}
+        </div>
+        <br>
+        <div class="random-word">
+          {{#randomWord}}
+          {{#.}}
+          <span>{{randomWord}}</span>
+          {{/.}}
+          {{/randomWord}}
+        </div>
+        </form>
+    </div>
+    </section>
+
+  <script src="jscode.js"></script>
+  </body>
+</html>
