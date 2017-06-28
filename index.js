@@ -3,6 +3,7 @@ const path = require('path');
 const jsfile = require('./jscode.js');
 const mustacheExpress = require('mustache-express');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 const app = express();
 const fs = require('fs');
 const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
@@ -12,6 +13,11 @@ const lettersGuessed = [];
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(express.static('./'));
+app.use(session({
+  secret: 'hey man',
+  resave: false,
+  saveUninitialized: true
+}));
 app.engine('mustache', mustacheExpress());
 app.set('views', './views');
 app.set('view engine', 'mustache');
@@ -20,28 +26,37 @@ const randomWord = words[Math.floor(Math.random() * words.length)];
 const secretWord = randomWord.replace(/[a-z]/g,"_");
 console.log(randomWord);
 
+app.get('/', function (req, res) {
+  res.render('index');
+});
+
 app.get('/game', function (req, res) {
   res.render('game', {randomWord:secretWord});
 });
 
-app.get('/', function (req, res) {
-res.render('index');
-});
+// function findLetters() {
+//   if (req.body.userInput.value == randomWord) {
+//     secretWord.replace(/_/g,req.body.userInput.value)
+//   } return
+// }
 
-// app.get('/game', function (req, res) {
-//   res.render('game', {lettersGuessed:lettersGuessed});
-// });
+// At the end of Tuesday I was working on getting the underscores to change to the letter that was guessed, if correct. Leaving now!
 
 app.post('/game', function (req, res) {
   if (req.body.userInput.length > 1) {
     res.send("You may only enter 1 letter at a time.");
   } else if (lettersGuessed.length === 8) {
     res.send("Game over!");
-  } else
+  } else if (randomWord.includes(req.body.userInput)) {
+    console.log(randomWord, secretWord);
+  secretWord.replace(/_/g,req.body.userInput.value);
   lettersGuessed.push(req.body.userInput.toUpperCase());
-  res.render('game', {lettersGuessed:lettersGuessed});
-  res.redirect('/game');
+  res.render('game', {lettersGuessed:lettersGuessed, randomWord:secretWord});
   console.log(lettersGuessed);
+} else {
+  lettersGuessed.push(req.body.userInput.toUpperCase());
+  res.render('game', {lettersGuessed:lettersGuessed, randomWord:secretWord});
+}
 });
 
 

@@ -113,8 +113,8 @@ input.start-game-submit:hover {
 }
 
 .random-word {
-  display: flex;
-  justify-content: center;
   font-size: 30px;
   letter-spacing: 2px;
+  margin-left: auto;
+  margin-right: auto;
 }
