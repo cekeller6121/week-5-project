@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Clement's Mystery Word</title>
+    <title>Clement's Mystery Word Game</title>
     <meta charset="utf-8">
     <link href="styles.css" rel="stylesheet" type="text/css">
   </head>
@@ -16,7 +16,7 @@
       <br>
       <br>
         <form class="form" method="post">
-          <input id="user-input" name="userInput" placeholder="enter a letter">
+          <input id="user-input" autofocus="true" maxlength="1" name="userInput" placeholder="enter a letter">
         <div class="letters-guessed">
         <span>Letters Guessed:<br></span>
         {{#lettersGuessed}}
@@ -27,11 +27,7 @@
         </div>
         <br>
         <div class="random-word">
-          {{#randomWord}}
-          {{#.}}
           <span>{{randomWord}}</span>
-          {{/.}}
-          {{/randomWord}}
         </div>
         </form>
     </div>

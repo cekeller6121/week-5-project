@@ -2,10 +2,10 @@
   "name": "mystery-word",
   "version": "1.0.0",
   "description": "User guesses letter by letter to reveal a mystery word. Have fun!",
-  "main": "index.js",
+  "main": "newindex.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node newindex.js"
   },
   "keywords": [
     "mystery",
